@@ -44,7 +44,7 @@ class JsonFileInteractiveLevelReader:
 
 
 class JsonFileLevelReader:
-    """JSON File director level reader"""
+    """JSON File direct level reader"""
 
     def __init__(self, level_path):
         self.level_path = level_path
@@ -56,6 +56,6 @@ class JsonFileLevelReader:
 
 if __name__ == '__main__':
     COMPARISON = TwoLevelsComparison(
-        JsonFileInteractiveLevelReader(),
-        JsonFileInteractiveLevelReader())
+        JsonFileLevelReader("test/level_1.json"),
+        JsonFileLevelReader("test/level_2.json"))
     COMPARISON.execute()
