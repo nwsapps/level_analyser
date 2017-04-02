@@ -18,7 +18,7 @@ class JsonLevelParse:
 class Level:
     """Level representation."""
 
-    def __init__(self, level_id, matrix, shuffle_size, version = 1):
+    def __init__(self, level_id, matrix, shuffle_size, version=1):
         self.level_id = level_id
         self.matrix = matrix
         self.shuffle_size = shuffle_size

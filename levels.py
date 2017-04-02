@@ -34,6 +34,36 @@ class DuplicationsSearch:
                     self.__duplications.append((self.levels[i], self.levels[j]))
 
 
+class DuplicationSearch:
+    """
+    Duplication search.
+    It searches a list for duplications for a given level.
+    """
+
+    def __init__(self, levels, level):
+        self.levels = levels
+        self.level = level
+        self.__duplications = []
+
+    def search(self):
+        """
+        Executes the searching.
+        Returns a list containg the levels which duplicates the search criteria.
+        If no duplications were found then it returns an empty list.
+        """
+        self.__reset()
+        self.__perform_search()
+        return self.__duplications
+
+    def __reset(self):
+        self.__duplications.clear()
+
+    def __perform_search(self):
+        for level in self.levels:
+            if level == self.level:
+                self.__duplications.append(level)
+
+
 if __name__ == '__main__':
     from level import Level, Matrix
 
@@ -72,10 +102,22 @@ if __name__ == '__main__':
             [7, 1, 1, 1],
             [1, 1, 1, 1],
             [1, 1, 1, 1],
-            [1, 1, 1, 1]
+            [1, 1, 1, 7]
         ]), 2)
     ]
 
     SEARCH = DuplicationsSearch(LEVELS)
     DUPLICATIONS = SEARCH.search()
     print(DUPLICATIONS)
+
+    LEVEL = Level(7, Matrix([
+        [9, 4, 4, 4],
+        [4, 4, 4, 4],
+        [4, 4, 4, 4],
+        [4, 4, 4, 9]
+    ]), 2)
+
+    SEARCH = DuplicationSearch(LEVELS, LEVEL)
+    DUPLICATIONS = SEARCH.search()
+    print(DUPLICATIONS)
+
