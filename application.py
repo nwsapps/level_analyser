@@ -1,10 +1,47 @@
+#!/usr/bin/python3
+
 """
 The application module.
 """
 
 import os
+import argparse
 import level
 import levels
+
+
+class Application:
+
+    def __init__(self):
+        self.__args = None
+        self.__parser = argparse.ArgumentParser("Level analysing")
+        self.__build_options()
+
+    def __build_options(self):
+        self.__add_search_duplications_opt()
+        self.__add_path_opt()
+
+    def __add_search_duplications_opt(self):
+        self.__parser.add_argument(
+            '--search-duplications', action='store_true', dest='search_duplications',
+            help='searches for levels duplications in the specified path')
+
+    def __add_path_opt(self):
+        self.__parser.add_argument('--path', type=str, action='store', dest='path')
+
+    def run(self):
+        """Runs the application"""
+        self.__args = self.__parser.parse_args()
+        self.__process_action()
+
+    def __process_action(self):
+        if self.__args.search_duplications:
+            self.__process_search_duplications()
+
+    def __process_search_duplications(self):
+        path = self.__args.path
+        action = DuplicationsFinder(JsonDirectoryLevelsReader(path))
+        action.execute()
 
 
 class DuplicationFinder:
@@ -172,6 +209,5 @@ class JsonFileLevelReader:
 
 
 if __name__ == '__main__':
-    FINDER = DuplicationsFinder(
-        JsonDirectoryInteractiveLevelsReader())
-    FINDER.execute()
+    APP = Application()
+    APP.run()
